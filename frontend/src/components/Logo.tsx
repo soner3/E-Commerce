@@ -5,5 +5,5 @@ interface LogoPropTypes {
 }
 
 export default function Logo({ children }: LogoPropTypes) {
-  return <h1 className="text-xl font-bold m-auto">{children}</h1>;
+  return <h2 className="text-2xl font-bold m-auto">{children}</h2>;
 }

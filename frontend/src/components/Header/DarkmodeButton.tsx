@@ -18,7 +18,7 @@ export default function DarkmodeButton() {
 
   return (
     <div className="flex justify-center items-center ">
-      <div className="border h-full px-1 rounded-l-full flex justify-center items-center dark:border-black">
+      <div className="border h-full rounded-l-full flex justify-center items-center dark:border-black pl-1">
         {theme === "system" ? (
           <BsCircleHalf className="size-6 ml-1 m-1" />
         ) : theme === "dark" ? (
@@ -30,7 +30,7 @@ export default function DarkmodeButton() {
       <select
         name="theme"
         id="theme"
-        className="rounded-r-full h-full px-1 dark:border-black dark:text-white outline-none bg-white border dark:bg-slate-900 font-medium hover:bg-gray-200 hover:cursor-pointer dark:hover:bg-white dark:hover:text-black"
+        className="rounded-r-full h-full duration-500 px-1 dark:border-black dark:text-white outline-none bg-white border dark:bg-slate-900 font-medium hover:bg-gray-200 hover:cursor-pointer dark:hover:bg-white dark:hover:text-black"
         value={theme}
         onChange={handleTheme}
       >

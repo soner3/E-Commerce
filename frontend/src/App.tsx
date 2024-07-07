@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Main from "./components/Main";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import Sidebar from "./components/Sidebar/Sidebar";
 import { MyShopContextProvider } from "./contexts/MyShopContext";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
       <MyShopContextProvider>
         <Header />
+        <Sidebar />
         <Main />
         <Footer />
       </MyShopContextProvider>
