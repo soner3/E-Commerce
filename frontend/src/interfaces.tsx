@@ -46,8 +46,6 @@ export interface Product {
 
 export interface ProductsData {
   products: Product[];
-  total: number;
-  skip: 0;
-  limit: number;
   loading: boolean;
+  error: boolean;
 }

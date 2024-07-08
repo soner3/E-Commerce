@@ -1,3 +1,4 @@
+import ProductCard from "../components/Main/ProductCard";
 import { useMyShopContext } from "../contexts/MyShopContext";
 
 export default function Homepage() {
@@ -5,15 +6,12 @@ export default function Homepage() {
 
   return (
     <section>
-      <h1>Latest Products</h1>
+      <h2>Latest Products</h2>
       <div className="flex flex-wrap gap-3">
+        {state.error && <p>Failure Loading Data</p>}
+        {state.loading && <p>Loading Data...</p>}
         {state.products.map((product) => {
-          return (
-            <div key={product.id} className="p-2 border rounded shadow">
-              <h2 className="text-2xl font-medium">{product.title}</h2>
-              <p>{product.description}</p>
-            </div>
-          );
+          return <ProductCard product={product} />;
         })}
       </div>
     </section>
