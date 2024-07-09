@@ -5,9 +5,9 @@ import {
   useReducer,
   useState,
 } from "react";
-import { ProductsData } from "../interfaces";
+import { Product, ProductsData } from "../interfaces";
 
-interface MyShopContextProviderPropinterface {
+interface MyShopContextProviderPropType {
   children: React.ReactNode;
 }
 
@@ -16,6 +16,9 @@ interface Contextinterface {
   handleIsSidebarOpen: () => void;
   state: ProductsData;
   dispatch: React.Dispatch<productAction>;
+  search: string;
+  handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const initialState: ProductsData = {
@@ -29,7 +32,8 @@ const MyShopContext = createContext<Contextinterface | null>(null);
 type productAction =
   | { type: "FETCH_PRODUCTS" }
   | { type: "FETCH_FAILURE" }
-  | { type: "FETCH_SUCCESS"; payload: ProductsData };
+  | { type: "FETCH_SUCCESS"; payload: Product[] }
+  | { type: "GET_PRODUCT_SUCCESS"; payload: Product[] };
 
 function productsReducer(state: ProductsData, action: productAction) {
   switch (action.type) {
@@ -43,9 +47,18 @@ function productsReducer(state: ProductsData, action: productAction) {
       return {
         ...state,
         loading: false,
-        products: action.payload.products,
+        products: action.payload,
         error: false,
       };
+
+    case "GET_PRODUCT_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        error: false,
+      };
+
     default:
       throw new Error("Unknown Action");
   }
@@ -53,23 +66,30 @@ function productsReducer(state: ProductsData, action: productAction) {
 
 export function MyShopContextProvider({
   children,
-}: MyShopContextProviderPropinterface) {
+}: MyShopContextProviderPropType) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [state, dispatch] = useReducer<
-    React.Reducer<ProductsData, productAction>
-  >(productsReducer, initialState);
+  const [state, dispatch] = useReducer(productsReducer, initialState);
+  const [search, setSearch] = useState<string>("");
 
   function handleIsSidebarOpen() {
     setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(event.target.value);
+  }
+
+  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSearch("");
   }
 
   useEffect(() => {
     async function getProductData() {
       try {
         dispatch({ type: "FETCH_PRODUCTS" });
-        const res = await fetch("https://dummyjson.com/products");
-        const data: ProductsData = await res.json();
-
+        const res = await fetch("http://localhost:8000/products");
+        const data: Product[] = await res.json();
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
         dispatch({ type: "FETCH_FAILURE" });
@@ -79,6 +99,27 @@ export function MyShopContextProvider({
     getProductData();
   }, []);
 
+  useEffect(() => {
+    async function searchProduct() {
+      try {
+        if (search === "") {
+          return;
+        }
+        dispatch({ type: "FETCH_PRODUCTS" });
+
+        const res = await fetch(
+          `http://localhost:8000/products?title=${search}`
+        );
+        const data: Product[] = await res.json();
+
+        dispatch({ type: "GET_PRODUCT_SUCCESS", payload: data });
+      } catch (error) {
+        dispatch({ type: "FETCH_FAILURE" });
+      }
+    }
+    searchProduct();
+  }, [search]);
+
   return (
     <MyShopContext.Provider
       value={{
@@ -86,6 +127,9 @@ export function MyShopContextProvider({
         handleIsSidebarOpen,
         state,
         dispatch,
+        search,
+        handleSearchChange,
+        handleSearchSubmit,
       }}
     >
       {children}

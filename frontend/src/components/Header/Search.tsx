@@ -1,22 +1,13 @@
-import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { useMyShopContext } from "../../contexts/MyShopContext";
 
 export default function Search() {
-  const [search, setSearch] = useState<string>("");
-
-  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(event.target.value);
-  }
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSearch("");
-  }
+  const { handleSearchChange, handleSearchSubmit, search } = useMyShopContext();
 
   return (
     <form
       method="get"
-      onSubmit={handleSubmit}
+      onSubmit={handleSearchSubmit}
       className="border dark:border-black rounded-full md:flex justify-center hidden"
     >
       <button

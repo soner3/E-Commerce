@@ -3,22 +3,17 @@ import {
   BsFillHouseDoorFill,
   BsSearch,
 } from "react-icons/bs";
-import { useState } from "react";
 import Logo from "../Logo";
 import { useMyShopContext } from "../../contexts/MyShopContext";
 
 export default function SidebarHeader() {
-  const { isSidebarOpen, handleIsSidebarOpen } = useMyShopContext();
-  const [search, setSearch] = useState<string>("");
-
-  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(event.target.value);
-  }
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSearch("");
-  }
+  const {
+    isSidebarOpen,
+    handleIsSidebarOpen,
+    handleSearchChange,
+    handleSearchSubmit,
+    search,
+  } = useMyShopContext();
 
   return (
     <>
@@ -36,7 +31,7 @@ export default function SidebarHeader() {
 
           <form
             method="get"
-            onSubmit={handleSubmit}
+            onSubmit={handleSearchSubmit}
             className="rounded-full md:hidden justify-center flex my-2"
           >
             <button

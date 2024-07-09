@@ -11,7 +11,7 @@ export default function Homepage() {
         {state.error && <p>Failure Loading Data</p>}
         {state.loading && <p>Loading Data...</p>}
         {state.products.map((product) => {
-          return <ProductCard product={product} />;
+          return <ProductCard key={product.id} product={product} />;
         })}
       </div>
     </section>

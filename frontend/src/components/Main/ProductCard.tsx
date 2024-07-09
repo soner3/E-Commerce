@@ -15,7 +15,7 @@ export default function ProductCard({ product }: ProductCardPropType) {
         />
       </div>
       <h3 className="text-xl font-medium mb-2">{product.title}</h3>
-      <p className="text-gray-600">{product.description}</p>
+      <p>{product.description}</p>
     </div>
   );
 }
