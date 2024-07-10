@@ -17,7 +17,7 @@ export default function Homepage() {
   return (
     <section>
       <h2>Latest Products</h2>
-      <div className="flex flex-wrap gap-10 md:gap-12 lg:gap-20 justify-center duration-500">
+      <div className="flex flex-wrap gap-16 justify-center duration-500">
         {state.error && <p>Failure Loading Data</p>}
         {state.loading && <p>Loading Data...</p>}
         {products.map((product) => {

@@ -1,5 +1,6 @@
 import { useMyShopContext } from "../../contexts/MyShopContext";
 import Homepage from "../../pages/Homepage";
+import Footer from "../Footer";
 
 export default function Main() {
   const { isSidebarOpen, handleIsSidebarOpen } = useMyShopContext();
@@ -13,6 +14,7 @@ export default function Main() {
     >
       <h1 className="text-3xl font-bold py-3">Welcome to MyShop</h1>
       <Homepage />
+      <Footer />
     </main>
   );
 }
