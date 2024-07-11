@@ -1,4 +1,7 @@
 import ProductCard from "../components/Main/ProductCard";
+import ProductCardBody from "../components/Main/ProductCardBody";
+import ProductCardFooter from "../components/Main/ProductCardFooter";
+import ProductCardHeader from "../components/Main/ProductCardHeader";
 import { useMyShopContext } from "../contexts/MyShopContext";
 import { Product } from "../interfaces";
 
@@ -21,7 +24,13 @@ export default function Homepage() {
         {state.error && <p>Failure Loading Data</p>}
         {state.loading && <p>Loading Data...</p>}
         {products.map((product) => {
-          return <ProductCard key={product.id} product={product} />;
+          return (
+            <ProductCard key={product.id}>
+              <ProductCardHeader product={product} />
+              <ProductCardBody product={product} />
+              <ProductCardFooter product={product} />
+            </ProductCard>
+          );
         })}
       </div>
     </section>

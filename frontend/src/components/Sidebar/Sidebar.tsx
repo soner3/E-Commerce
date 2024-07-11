@@ -16,7 +16,7 @@ export default function Sidebar() {
     >
       <SidebarHeader />
       <SidebarBody />
-      <SidebarFooter>Settings</SidebarFooter>
+      <SidebarFooter>Back To Top</SidebarFooter>
     </nav>
   );
 }

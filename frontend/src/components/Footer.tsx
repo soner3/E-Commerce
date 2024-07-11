@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <footer>Copyright &copy; MyShop</footer>;
+  return <footer className="flex justify-center m-4">MyShop &copy; </footer>;
 }

@@ -1,4 +1,4 @@
-import { BsFillGearFill } from "react-icons/bs";
+import { BsArrowUpCircleFill } from "react-icons/bs";
 import { useMyShopContext } from "../../contexts/MyShopContext";
 
 interface SidebarFooterPropTypes {
@@ -17,7 +17,7 @@ export default function SidebarFooter({ children }: SidebarFooterPropTypes) {
             <a href={"#"} className="">
               <li className="p-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex items-center gap-3">
                 <div>
-                  <BsFillGearFill className="size-5" />
+                  <BsArrowUpCircleFill className="size-5" />
                 </div>
                 <p>{children}</p>
               </li>
@@ -29,7 +29,7 @@ export default function SidebarFooter({ children }: SidebarFooterPropTypes) {
           <a href={"#"} className="">
             <li className="p-5 border-t border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer flex">
               <div>
-                <BsFillGearFill className="size-7" />
+                <BsArrowUpCircleFill className="size-7" />
               </div>
             </li>
           </a>

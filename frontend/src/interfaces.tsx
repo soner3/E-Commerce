@@ -49,3 +49,7 @@ export interface ProductsData {
   loading: boolean;
   error: boolean;
 }
+
+export interface ProductCardPropType {
+  product: Product;
+}

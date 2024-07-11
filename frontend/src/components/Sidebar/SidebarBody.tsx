@@ -1,48 +1,66 @@
 import { useMyShopContext } from "../../contexts/MyShopContext";
-import SidebarBodyItem from "./SidebarBodyItem";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 
-interface ItemType {
-  href: string;
-  icon: React.ReactNode;
-  name: string;
-}
-
 export default function SidebarBody() {
-  const { isSidebarOpen } = useMyShopContext();
-
-  let nextId = 0;
-
-  const items: ItemType[] = [
-    {
-      href: "#",
-      icon: (
-        <FaShoppingCart className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
-      ),
-      name: "Cart",
-    },
-    {
-      href: "#",
-      icon: <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />,
-      name: "Login",
-    },
-  ];
+  const { isSidebarOpen, cart } = useMyShopContext();
 
   return (
     <ul className="flex flex-col flex-grow">
-      {items.map((item) => {
-        nextId++;
-        return (
-          <SidebarBodyItem
-            key={nextId}
-            isSidebarOpen={isSidebarOpen}
-            icon={item.icon}
-            href={item.href}
-          >
-            {item.name}
-          </SidebarBodyItem>
-        );
-      })}
+      {isSidebarOpen ? (
+        <>
+          <a href={"#"} className="w-full">
+            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3 relative">
+              <div>
+                <FaShoppingCart
+                  className={`${isSidebarOpen ? "size-5" : "size-7"}`}
+                />
+              </div>
+              <p>Cart</p>
+              {cart.length <= 0 ? (
+                ""
+              ) : (
+                <span className="absolute top-2 right-2 w-6 rounded-full bg-red-500 text-white flex justify-center">
+                  {cart.length >= 9 ? "9+" : cart.length}
+                </span>
+              )}
+            </li>
+          </a>
+          <a href={"#"} className="w-full">
+            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3">
+              <div className="relative">
+                <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
+              </div>
+              <p>Login</p>
+            </li>
+          </a>
+        </>
+      ) : (
+        <>
+          <a href={"#"} className="w-full">
+            <li className="p-5 border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer relative">
+              <div>
+                <FaShoppingCart
+                  className={`${isSidebarOpen ? "size-5" : "size-7"}`}
+                />
+                {cart.length <= 0 ? (
+                  ""
+                ) : (
+                  <span className="absolute top-3 right-2 w-6 rounded-full bg-red-500 text-white flex justify-center">
+                    {cart.length >= 9 ? "9+" : cart.length}
+                  </span>
+                )}
+              </div>
+            </li>
+          </a>
+          <a href={"#"} className="w-full">
+            <li className="p-5 border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer">
+              <div>
+                <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
+              </div>
+            </li>
+          </a>
+        </>
+      )}
     </ul>
   );
 }

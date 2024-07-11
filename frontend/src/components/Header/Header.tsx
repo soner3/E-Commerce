@@ -5,12 +5,10 @@ import Search from "./Search";
 
 export default function Header() {
   return (
-    <header className="flex sticky justify-between p-2 top-0 w-full dark:border-black border bg-transparent dark:bg-transparent dark:text-sky-500 dark:bg-slate-900 shadow-xl duration-500 backdrop-blur">
+    <header className="flex sticky justify-between p-2 top-0 w-full dark:border-black border bg-transparent dark:bg-transparent dark:text-sky-500 dark:bg-slate-900 shadow-xl duration-500 backdrop-blur z-10">
       <div className="flex justify-center items-center gap-3">
         <NavbarButton />
-        <a href="#">
-          <Logo>MyShop</Logo>
-        </a>
+        <Logo>MyShop</Logo>
       </div>
       <Search />
       <DarkmodeButton />

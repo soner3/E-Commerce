@@ -19,6 +19,8 @@ interface Contextinterface {
   search: string;
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  cart: Product[];
+  handleAddToCart: (product: Product) => void;
 }
 
 const initialState: ProductsData = {
@@ -61,9 +63,14 @@ export function MyShopContextProvider({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [state, dispatch] = useReducer(productsReducer, initialState);
   const [search, setSearch] = useState<string>("");
+  const [cart, setCart] = useState<Product[]>([]);
 
   function handleIsSidebarOpen() {
     setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  function handleAddToCart(product: Product) {
+    setCart([...cart, product]);
   }
 
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -100,6 +107,8 @@ export function MyShopContextProvider({
         search,
         handleSearchChange,
         handleSearchSubmit,
+        cart,
+        handleAddToCart,
       }}
     >
       {children}
