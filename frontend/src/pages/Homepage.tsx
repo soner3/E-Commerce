@@ -24,7 +24,7 @@ export default function Homepage() {
         Welcome to MyShop
       </h1>
       <ProductCarousel />
-      <h2>Latest Products</h2>
+      <br />
       <div className="flex flex-wrap gap-16 justify-center duration-500">
         {state.error && <p>Failure Loading Data</p>}
         {state.loading && <p>Loading Data...</p>}

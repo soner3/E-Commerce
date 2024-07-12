@@ -23,6 +23,7 @@ interface Contextinterface {
   handleAddToCart: (cartItem: CartItem) => void;
   handlePlusCartItemQuantity: (cartItem: CartItem) => void;
   handleMinusCartItemQuantity: (cartItem: CartItem) => void;
+  handleDeleteCartItem: (cartItem: CartItem) => void;
 }
 
 const initialState: ProductsData = {
@@ -83,6 +84,14 @@ export function MyShopContextProvider({
               ),
             }
           : item;
+      })
+    );
+  }
+
+  function handleDeleteCartItem(cartItem: CartItem) {
+    setCart(
+      cart.filter((item) => {
+        return item.product.id !== cartItem.product.id;
       })
     );
   }
@@ -173,6 +182,7 @@ export function MyShopContextProvider({
         handleAddToCart,
         handleMinusCartItemQuantity,
         handlePlusCartItemQuantity,
+        handleDeleteCartItem,
       }}
     >
       {children}
