@@ -1,7 +1,8 @@
-import ProductCard from "../components/Main/ProductCard";
-import ProductCardBody from "../components/Main/ProductCardBody";
-import ProductCardFooter from "../components/Main/ProductCardFooter";
-import ProductCardHeader from "../components/Main/ProductCardHeader";
+import ProductCard from "../components/Main/Homepage/ProductCard";
+import ProductCardBody from "../components/Main/Homepage/ProductCardBody";
+import ProductCardFooter from "../components/Main/Homepage/ProductCardFooter";
+import ProductCardHeader from "../components/Main/Homepage/ProductCardHeader";
+import ProductCarousel from "../components/Main/Homepage/ProductCarousel";
 import { useMyShopContext } from "../contexts/MyShopContext";
 import { Product } from "../interfaces";
 
@@ -19,6 +20,10 @@ export default function Homepage() {
 
   return (
     <section>
+      <h1 id="top" className="text-3xl text-center font-bold py-3">
+        Welcome to MyShop
+      </h1>
+      <ProductCarousel />
       <h2>Latest Products</h2>
       <div className="flex flex-wrap gap-16 justify-center duration-500">
         {state.error && <p>Failure Loading Data</p>}

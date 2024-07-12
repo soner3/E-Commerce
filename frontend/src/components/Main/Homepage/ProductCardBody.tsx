@@ -1,5 +1,5 @@
-import { ProductCardPropType } from "../../interfaces";
-import Rating from "./Rating";
+import { ProductCardPropType } from "../../../interfaces";
+import Rating from "../Rating";
 
 export default function ProductCardBody({ product }: ProductCardPropType) {
   return (

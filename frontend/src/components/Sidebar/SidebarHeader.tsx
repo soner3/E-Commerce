@@ -5,6 +5,7 @@ import {
 } from "react-icons/bs";
 import Logo from "../Logo";
 import { useMyShopContext } from "../../contexts/MyShopContext";
+import { NavLink } from "react-router-dom";
 
 export default function SidebarHeader() {
   const {
@@ -20,9 +21,9 @@ export default function SidebarHeader() {
       {isSidebarOpen ? (
         <>
           <div className="flex items-center justify-between p-1 mb-2">
-            <a href="#" className="flex justify-center items-center">
+            <NavLink to={"/"}>
               <Logo>MyShop</Logo>
-            </a>
+            </NavLink>
             <button onClick={handleIsSidebarOpen}>
               <BsArrowLeftCircleFill className="size-7" />
             </button>

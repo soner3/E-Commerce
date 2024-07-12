@@ -1,4 +1,4 @@
-import { ProductCardPropType } from "../../interfaces";
+import { ProductCardPropType } from "../../../interfaces";
 
 export default function ProductCardHeader({ product }: ProductCardPropType) {
   return (

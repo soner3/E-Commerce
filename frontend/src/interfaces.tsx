@@ -50,6 +50,11 @@ export interface ProductsData {
   error: boolean;
 }
 
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
 export interface ProductCardPropType {
   product: Product;
 }

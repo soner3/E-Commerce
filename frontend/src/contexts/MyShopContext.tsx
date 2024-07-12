@@ -5,7 +5,7 @@ import {
   useReducer,
   useState,
 } from "react";
-import { Product, ProductsData } from "../interfaces";
+import { CartItem, Product, ProductsData } from "../interfaces";
 
 interface MyShopContextProviderPropType {
   children: React.ReactNode;
@@ -19,8 +19,8 @@ interface Contextinterface {
   search: string;
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  cart: Product[];
-  handleAddToCart: (product: Product) => void;
+  cart: CartItem[];
+  handleAddToCart: (cartItem: CartItem) => void;
 }
 
 const initialState: ProductsData = {
@@ -42,7 +42,7 @@ function productsReducer(state: ProductsData, action: productAction) {
       return { ...state, loading: true };
 
     case "FETCH_FAILURE":
-      return { ...state, error: true };
+      return { ...state, error: true, loading: false };
 
     case "FETCH_SUCCESS":
       return {
@@ -63,14 +63,28 @@ export function MyShopContextProvider({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [state, dispatch] = useReducer(productsReducer, initialState);
   const [search, setSearch] = useState<string>("");
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   function handleIsSidebarOpen() {
     setIsSidebarOpen(!isSidebarOpen);
   }
 
-  function handleAddToCart(product: Product) {
-    setCart([...cart, product]);
+  function handleAddToCart(cartItem: CartItem) {
+    const itemInCart = cart.find((item) => {
+      return item.product.id === cartItem.product.id;
+    });
+
+    if (itemInCart) {
+      setCart(
+        cart.map((item) => {
+          return item.product.id === itemInCart?.product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item;
+        })
+      );
+    } else {
+      setCart([...cart, cartItem]);
+    }
   }
 
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {

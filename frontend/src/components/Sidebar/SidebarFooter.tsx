@@ -14,7 +14,7 @@ export default function SidebarFooter({ children }: SidebarFooterPropTypes) {
         <>
           <hr />
           <div className="w-full mt-2 mb-16">
-            <a href={"#"} className="">
+            <a href={"#top"} className="">
               <li className="p-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex items-center gap-3">
                 <div>
                   <BsArrowUpCircleFill className="size-5" />
@@ -26,7 +26,7 @@ export default function SidebarFooter({ children }: SidebarFooterPropTypes) {
         </>
       ) : (
         <div className="w-full mb-14">
-          <a href={"#"} className="">
+          <a href={"#top"} className="">
             <li className="p-5 border-t border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer flex">
               <div>
                 <BsArrowUpCircleFill className="size-7" />
