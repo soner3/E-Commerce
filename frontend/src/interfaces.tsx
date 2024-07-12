@@ -53,6 +53,7 @@ export interface ProductsData {
 export interface CartItem {
   product: Product;
   quantity: number;
+  totalPrice: number;
 }
 
 export interface ProductCardPropType {

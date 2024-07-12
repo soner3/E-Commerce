@@ -4,7 +4,11 @@ import { ProductCardPropType, CartItem } from "../../../interfaces";
 
 export default function ProductCardFooter({ product }: ProductCardPropType) {
   const { handleAddToCart } = useMyShopContext();
-  const cartItem: CartItem = { product: product, quantity: 1 };
+  const cartItem: CartItem = {
+    product: product,
+    quantity: 1,
+    totalPrice: product.price,
+  };
 
   return (
     <div className="mt-auto flex mb-1 rounded-full bg-white">

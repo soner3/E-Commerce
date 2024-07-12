@@ -21,6 +21,8 @@ interface Contextinterface {
   handleSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   cart: CartItem[];
   handleAddToCart: (cartItem: CartItem) => void;
+  handlePlusCartItemQuantity: (cartItem: CartItem) => void;
+  handleMinusCartItemQuantity: (cartItem: CartItem) => void;
 }
 
 const initialState: ProductsData = {
@@ -69,6 +71,46 @@ export function MyShopContextProvider({
     setIsSidebarOpen(!isSidebarOpen);
   }
 
+  function handlePlusCartItemQuantity(cartItem: CartItem) {
+    setCart(
+      cart.map((item) => {
+        return item.product.id === cartItem.product.id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+              totalPrice: parseFloat(
+                (item.product.price * (item.quantity + 1)).toFixed(2)
+              ),
+            }
+          : item;
+      })
+    );
+  }
+
+  function handleMinusCartItemQuantity(cartItem: CartItem) {
+    if (cartItem.quantity <= 1) {
+      setCart(
+        cart.filter((item) => {
+          return item.product.id !== cartItem.product.id;
+        })
+      );
+    } else {
+      setCart(
+        cart.map((item) => {
+          return item.product.id === cartItem.product.id
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+                totalPrice: parseFloat(
+                  (item.product.price * (item.quantity - 1)).toFixed(2)
+                ),
+              }
+            : item;
+        })
+      );
+    }
+  }
+
   function handleAddToCart(cartItem: CartItem) {
     const itemInCart = cart.find((item) => {
       return item.product.id === cartItem.product.id;
@@ -78,7 +120,13 @@ export function MyShopContextProvider({
       setCart(
         cart.map((item) => {
           return item.product.id === itemInCart?.product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                totalPrice: parseFloat(
+                  (item.product.price * (item.quantity + 1)).toFixed(2)
+                ),
+              }
             : item;
         })
       );
@@ -123,6 +171,8 @@ export function MyShopContextProvider({
         handleSearchSubmit,
         cart,
         handleAddToCart,
+        handleMinusCartItemQuantity,
+        handlePlusCartItemQuantity,
       }}
     >
       {children}

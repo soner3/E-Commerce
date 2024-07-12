@@ -19,7 +19,7 @@ export default function ProductCarousel() {
   }
 
   return (
-    <div className="container mt-4 relative">
+    <div className="mt-4 md:mx-1 mb-4 lg:mx-20 relative group hover:cursor-pointer">
       <div className="relative w-full overflow-hidden rounded-lg border shadow-lg shadow-sky-500 border-sky-500">
         <div
           className="flex transition-transform duration-500"
@@ -33,12 +33,12 @@ export default function ProductCarousel() {
               <img
                 src={state.products[slide.id]?.images[0]}
                 alt="Product Picture"
-                className="object-cover w-52 relative"
+                className="object-cover w-52 relative group-hover:scale-110 duration-300"
               />
               <h2 className="mb-4 text-3xl font-medium">
                 {state.products[slide.id]?.title}
               </h2>
-              <div className="absolute top-10 right-24 text-white bg-red-500 rounded-full w-24 h-20 p-2 text-center">
+              <div className="absolute top-10 right-24 lg:right-56 text-white bg-red-500 rounded-full w-24 h-20 p-2 text-center">
                 {state.products[slide.id]?.discountPercentage}%<br />
                 OFF
               </div>
@@ -50,14 +50,17 @@ export default function ProductCarousel() {
         onClick={prevSlide}
         className="absolute top-1/2 left-1 transform -translate-y-1/2 text-4xl"
       >
-        <BsArrowLeftCircleFill className="text-sky-500" />
+        <BsArrowLeftCircleFill className="text-sky-500 hover:scale-110 duration-300" />
       </button>
       <button
         onClick={nextSlide}
         className="absolute top-1/2 right-1 transform -translate-y-1/2 text-4xl"
       >
-        <BsArrowRightCircleFill className="text-sky-500" />
+        <BsArrowRightCircleFill className="text-sky-500 hover:scale-110 duration-300" />
       </button>
+      <div className="absolute top-5 left-0 bg-red-600 text-center font-bold text-yellow-300 font-serif p-4 text-2xl">
+        Limited Time
+      </div>
     </div>
   );
 }

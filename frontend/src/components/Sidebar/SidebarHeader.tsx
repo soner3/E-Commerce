@@ -55,7 +55,9 @@ export default function SidebarHeader() {
       ) : (
         <>
           <div className="p-5 border-b hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer">
-            <a href="#">{<BsFillHouseDoorFill className="size-7" />}</a>
+            <NavLink to={"/"}>
+              {<BsFillHouseDoorFill className="size-7" />}
+            </NavLink>
           </div>
         </>
       )}
