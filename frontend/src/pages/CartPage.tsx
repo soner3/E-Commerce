@@ -22,7 +22,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="flex flex-col mx-auto my-10 p-4 shadow-lg shadow-sky-500 rounded-lg">
+    <section className="flex flex-col mx-auto my-10 p-4 shadow-lg shadow-sky-500 rounded-lg">
       <h2 className="text-3xl font-bold mb-6">Your Shopping Cart</h2>
       <table className="table-auto border-collapse">
         <caption className="caption-top text-2xl font-medium mb-4">
@@ -79,6 +79,6 @@ export default function CartPage() {
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }

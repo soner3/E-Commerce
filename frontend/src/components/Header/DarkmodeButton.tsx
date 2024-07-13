@@ -30,7 +30,7 @@ export default function DarkmodeButton() {
       <select
         name="theme"
         id="theme"
-        className="rounded-r-full h-full px-1 dark:bg-transparent dark:border-black dark:hover:bg-slate-900 outline-none border font-medium hover:cursor-pointer bg-transparent"
+        className="rounded-r-full h-full px-1 dark:bg-transparent dark:border-black dark:hover:bg-slate-900 active:dark:text-sky-500 outline-none border font-medium hover:cursor-pointer bg-transparent active:bg-sky-500 active:text-white"
         value={theme}
         onChange={handleTheme}
       >

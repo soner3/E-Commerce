@@ -9,7 +9,7 @@ export default function NavbarButton() {
       onClick={handleIsSidebarOpen}
       className={`transform transition-transform duration-500 ${
         isSidebarOpen ? "rotate-180" : "ease-linear"
-      } rounded-full p-1 duration-500 relative`}
+      } rounded-full p-1 duration-500 relative active:bg-sky-500 active:text-white`}
     >
       {isSidebarOpen ? (
         <BsFilterLeft className="size-9 -rotate-180" />

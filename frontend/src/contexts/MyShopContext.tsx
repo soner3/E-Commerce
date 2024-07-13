@@ -1,7 +1,9 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
   useState,
 } from "react";
@@ -43,10 +45,8 @@ function productsReducer(state: ProductsData, action: productAction) {
   switch (action.type) {
     case "FETCH_PRODUCTS":
       return { ...state, loading: true };
-
     case "FETCH_FAILURE":
       return { ...state, error: true, loading: false };
-
     case "FETCH_SUCCESS":
       return {
         ...state,
@@ -54,7 +54,6 @@ function productsReducer(state: ProductsData, action: productAction) {
         products: action.payload,
         error: false,
       };
-
     default:
       throw new Error("Unknown Action");
   }
@@ -68,14 +67,14 @@ export function MyShopContextProvider({
   const [search, setSearch] = useState<string>("");
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  function handleIsSidebarOpen() {
-    setIsSidebarOpen(!isSidebarOpen);
-  }
+  const handleIsSidebarOpen = useCallback(() => {
+    setIsSidebarOpen((prev) => !prev);
+  }, []);
 
-  function handlePlusCartItemQuantity(cartItem: CartItem) {
-    setCart(
-      cart.map((item) => {
-        return item.product.id === cartItem.product.id
+  const handlePlusCartItemQuantity = useCallback((cartItem: CartItem) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.product.id === cartItem.product.id
           ? {
               ...item,
               quantity: item.quantity + 1,
@@ -83,52 +82,43 @@ export function MyShopContextProvider({
                 (item.product.price * (item.quantity + 1)).toFixed(2)
               ),
             }
-          : item;
-      })
+          : item
+      )
     );
-  }
+  }, []);
 
-  function handleDeleteCartItem(cartItem: CartItem) {
-    setCart(
-      cart.filter((item) => {
-        return item.product.id !== cartItem.product.id;
-      })
+  const handleDeleteCartItem = useCallback((cartItem: CartItem) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.product.id !== cartItem.product.id)
     );
-  }
+  }, []);
 
-  function handleMinusCartItemQuantity(cartItem: CartItem) {
-    if (cartItem.quantity <= 1) {
-      setCart(
-        cart.filter((item) => {
-          return item.product.id !== cartItem.product.id;
-        })
+  const handleMinusCartItemQuantity = useCallback((cartItem: CartItem) => {
+    setCart((prevCart) =>
+      cartItem.quantity <= 1
+        ? prevCart.filter((item) => item.product.id !== cartItem.product.id)
+        : prevCart.map((item) =>
+            item.product.id === cartItem.product.id
+              ? {
+                  ...item,
+                  quantity: item.quantity - 1,
+                  totalPrice: parseFloat(
+                    (item.product.price * (item.quantity - 1)).toFixed(2)
+                  ),
+                }
+              : item
+          )
+    );
+  }, []);
+
+  const handleAddToCart = useCallback((cartItem: CartItem) => {
+    setCart((prevCart) => {
+      const itemInCart = prevCart.find(
+        (item) => item.product.id === cartItem.product.id
       );
-    } else {
-      setCart(
-        cart.map((item) => {
-          return item.product.id === cartItem.product.id
-            ? {
-                ...item,
-                quantity: item.quantity - 1,
-                totalPrice: parseFloat(
-                  (item.product.price * (item.quantity - 1)).toFixed(2)
-                ),
-              }
-            : item;
-        })
-      );
-    }
-  }
-
-  function handleAddToCart(cartItem: CartItem) {
-    const itemInCart = cart.find((item) => {
-      return item.product.id === cartItem.product.id;
-    });
-
-    if (itemInCart) {
-      setCart(
-        cart.map((item) => {
-          return item.product.id === itemInCart?.product.id
+      if (itemInCart) {
+        return prevCart.map((item) =>
+          item.product.id === itemInCart.product.id
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -136,22 +126,26 @@ export function MyShopContextProvider({
                   (item.product.price * (item.quantity + 1)).toFixed(2)
                 ),
               }
-            : item;
-        })
-      );
-    } else {
-      setCart([...cart, cartItem]);
-    }
-  }
+            : item
+        );
+      }
+      return [...prevCart, cartItem];
+    });
+  }, []);
 
-  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(event.target.value);
-  }
+  const handleSearchChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearch(event.target.value);
+    },
+    []
+  );
 
-  function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSearch("");
-  }
+  const handleSearchSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+    },
+    []
+  );
 
   useEffect(() => {
     async function getProductData() {
@@ -164,29 +158,41 @@ export function MyShopContextProvider({
         dispatch({ type: "FETCH_FAILURE" });
       }
     }
-
     getProductData();
   }, []);
 
+  const value = useMemo(
+    () => ({
+      isSidebarOpen,
+      handleIsSidebarOpen,
+      state,
+      dispatch,
+      search,
+      handleSearchChange,
+      handleSearchSubmit,
+      cart,
+      handleAddToCart,
+      handleMinusCartItemQuantity,
+      handlePlusCartItemQuantity,
+      handleDeleteCartItem,
+    }),
+    [
+      isSidebarOpen,
+      state,
+      search,
+      cart,
+      handleIsSidebarOpen,
+      handleSearchChange,
+      handleSearchSubmit,
+      handleAddToCart,
+      handleMinusCartItemQuantity,
+      handlePlusCartItemQuantity,
+      handleDeleteCartItem,
+    ]
+  );
+
   return (
-    <MyShopContext.Provider
-      value={{
-        isSidebarOpen,
-        handleIsSidebarOpen,
-        state,
-        dispatch,
-        search,
-        handleSearchChange,
-        handleSearchSubmit,
-        cart,
-        handleAddToCart,
-        handleMinusCartItemQuantity,
-        handlePlusCartItemQuantity,
-        handleDeleteCartItem,
-      }}
-    >
-      {children}
-    </MyShopContext.Provider>
+    <MyShopContext.Provider value={value}>{children}</MyShopContext.Provider>
   );
 }
 

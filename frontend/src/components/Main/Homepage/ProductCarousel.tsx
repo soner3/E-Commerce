@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { useMyShopContext } from "../../../contexts/MyShopContext";
+import { Link } from "react-router-dom";
 
 export default function ProductCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,7 +27,8 @@ export default function ProductCarousel() {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {slides.map((slide) => (
-            <div
+            <Link
+              to={`product?id=${state.products[slide.id].id}`}
               key={slide.id}
               className="min-w-full h-64 flex flex-col items-center justify-center text-2xl relative"
             >
@@ -42,7 +44,7 @@ export default function ProductCarousel() {
                 {state.products[slide.id]?.discountPercentage}%<br />
                 OFF
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import ProductCardHeader from "../components/Main/Homepage/ProductCardHeader";
 import ProductCarousel from "../components/Main/Homepage/ProductCarousel";
 import { useMyShopContext } from "../contexts/MyShopContext";
 import { Product } from "../interfaces";
+import LoadingScreen from "./LoadingScreen";
 
 export default function Homepage() {
   const { state, search } = useMyShopContext();
@@ -27,7 +28,7 @@ export default function Homepage() {
       <br />
       <div className="flex flex-wrap gap-16 justify-center duration-500">
         {state.error && <p>Failure Loading Data</p>}
-        {state.loading && <p>Loading Data...</p>}
+        {state.loading && <LoadingScreen />}
         {products.map((product) => {
           return (
             <ProductCard key={product.id}>

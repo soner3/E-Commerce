@@ -1,10 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import { useMyShopContext } from "../../contexts/MyShopContext";
-import Homepage from "../../pages/Homepage";
 import Footer from "../Footer";
-import PageNotFound from "../../pages/PageNotFound";
-import ProductPage from "../../pages/ProductPage";
-import CartPage from "../../pages/CartPage";
+import { lazy, Suspense } from "react";
+import LoadingScreen from "../../pages/LoadingScreen";
+
+// import PageNotFound from "../../pages/PageNotFound";
+// import ProductPage from "../../pages/ProductPage";
+// import CartPage from "../../pages/CartPage";
+// import Homepage from "../../pages/Homepage";
+
+const Homepage = lazy(() => import("../../pages/Homepage"));
+const CartPage = lazy(() => import("../../pages/CartPage"));
+const ProductPage = lazy(() => import("../../pages/ProductPage"));
+const PageNotFound = lazy(() => import("../../pages/PageNotFound"));
 
 export default function Main() {
   const { isSidebarOpen, handleIsSidebarOpen } = useMyShopContext();
@@ -16,12 +24,14 @@ export default function Main() {
         isSidebarOpen ? "md:ml-[280px]" : "md:ml-[70px]"
       } duration-500 p-2 h-full`}
     >
-      <Routes>
-        <Route index element={<Homepage />} />
-        <Route path="product" element={<ProductPage />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
+          <Route index element={<Homepage />} />
+          <Route path="product" element={<ProductPage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </main>
   );

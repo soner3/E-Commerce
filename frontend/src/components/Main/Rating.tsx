@@ -1,6 +1,6 @@
 import { BsFillStarFill, BsStar, BsStarHalf } from "react-icons/bs";
 
-export default function Rating({ value = 5 }) {
+export default function Rating({ value = 5, showValue = true }) {
   const arr = Array.from({ length: 5 }, (_, i) => i + 1);
   return (
     <>
@@ -51,7 +51,7 @@ export default function Rating({ value = 5 }) {
           <BsStar />
         )} */}
       </div>
-      <p className="ml-2 text-lg font-medium">{value}</p>
+      {showValue && <p className="ml-2 text-lg font-medium">{value}</p>}
     </>
   );
 }
