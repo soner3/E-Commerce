@@ -170,7 +170,7 @@ export default function ProductPage() {
             <tbody>
               {product.reviews.map((review) => {
                 return (
-                  <tr>
+                  <tr key={review.reviewerEmail}>
                     <td className="bg-sky-500 text-white uppercase font-bold border-t border-b border-sky-600">
                       {review.reviewerName}
                     </td>
