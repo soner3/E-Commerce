@@ -1,6 +1,9 @@
+import { memo } from "react";
 import { ProductCardPropType } from "../../../interfaces";
 
-export default function ProductCardHeader({ product }: ProductCardPropType) {
+const ProductCardHeader = memo(function ProductCardHeader({
+  product,
+}: ProductCardPropType) {
   return (
     <div className="flex justify-center items-center mb-4 group-hover:scale-125 duration-300 hover:cursor-pointer">
       <img
@@ -10,4 +13,6 @@ export default function ProductCardHeader({ product }: ProductCardPropType) {
       />
     </div>
   );
-}
+});
+
+export default ProductCardHeader;

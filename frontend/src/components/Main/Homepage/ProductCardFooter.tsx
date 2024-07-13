@@ -2,8 +2,11 @@ import { BsCartPlusFill, BsInfoCircleFill } from "react-icons/bs";
 import { useMyShopContext } from "../../../contexts/MyShopContext";
 import { ProductCardPropType, CartItem } from "../../../interfaces";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
-export default function ProductCardFooter({ product }: ProductCardPropType) {
+const ProductCardFooter = memo(function ProductCardFooter({
+  product,
+}: ProductCardPropType) {
   const { handleAddToCart } = useMyShopContext();
   const cartItem: CartItem = {
     product: product,
@@ -34,4 +37,6 @@ export default function ProductCardFooter({ product }: ProductCardPropType) {
       </button>
     </div>
   );
-}
+});
+
+export default ProductCardFooter;
