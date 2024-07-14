@@ -1,13 +1,14 @@
 import { BsCartPlusFill, BsInfoCircleFill } from "react-icons/bs";
-import { useMyShopContext } from "../../../contexts/MyShopContext";
 import { ProductCardPropType, CartItem } from "../../../interfaces";
 import { Link } from "react-router-dom";
 import { memo } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../features/cartSlice";
 
 const ProductCardFooter = memo(function ProductCardFooter({
   product,
 }: ProductCardPropType) {
-  const { handleAddToCart } = useMyShopContext();
+  const dispatch = useDispatch();
   const cartItem: CartItem = {
     product: product,
     quantity: 1,
@@ -27,7 +28,7 @@ const ProductCardFooter = memo(function ProductCardFooter({
       </Link>
 
       <button
-        onClick={() => handleAddToCart(cartItem)}
+        onClick={() => dispatch(addToCart(cartItem))}
         className="w-full rounded-r-full p-3 text-sky-500 border border-sky-500 font-medium text-lg active:bg-sky-500 active:text-white"
       >
         <div className="flex justify-center items-center gap-2 hover:scale-110 duration-500 ">

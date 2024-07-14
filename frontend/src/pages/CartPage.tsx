@@ -1,13 +1,15 @@
 import { BsTrash3Fill } from "react-icons/bs";
-import { useMyShopContext } from "../contexts/MyShopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../store";
+import {
+  cartItemQuantityMinus,
+  cartItemQuantityPlus,
+  deleteCartItem,
+} from "../features/cartSlice";
 
 export default function CartPage() {
-  const {
-    cart,
-    handleMinusCartItemQuantity,
-    handlePlusCartItemQuantity,
-    handleDeleteCartItem,
-  } = useMyShopContext();
+  const { cart } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
   const total = cart.reduce((accumulator, item) => {
     return accumulator + item.totalPrice;
@@ -50,14 +52,14 @@ export default function CartPage() {
               <td className="py-3 px-2 text-center">
                 <div className="flex px-2 justify-center items-center">
                   <button
-                    onClick={() => handleMinusCartItemQuantity(item)}
+                    onClick={() => dispatch(cartItemQuantityMinus(item))}
                     className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-l"
                   >
                     -
                   </button>
                   <span className="px-3">{item.quantity}</span>
                   <button
-                    onClick={() => handlePlusCartItemQuantity(item)}
+                    onClick={() => dispatch(cartItemQuantityPlus(item))}
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-r"
                   >
                     +
@@ -69,7 +71,7 @@ export default function CartPage() {
               </td>
               <td className="py-3 px-2 text-center">
                 <button
-                  onClick={() => handleDeleteCartItem(item)}
+                  onClick={() => dispatch(deleteCartItem(item))}
                   className="bg-red-500 hover:bg-red-600 text-white font-bold p-2 rounded"
                 >
                   <BsTrash3Fill />

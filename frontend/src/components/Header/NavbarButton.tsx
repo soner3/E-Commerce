@@ -1,12 +1,16 @@
 import { BsFilterLeft, BsList } from "react-icons/bs";
-import { useMyShopContext } from "../../contexts/MyShopContext";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { handleSidebar } from "../../features/sidebarSlice";
 
 export default function NavbarButton() {
-  const { isSidebarOpen, handleIsSidebarOpen, cart } = useMyShopContext();
+  const { cart } = useSelector((state: RootState) => state.cart);
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
+  const dispatch = useDispatch();
 
   return (
     <button
-      onClick={handleIsSidebarOpen}
+      onClick={() => dispatch(handleSidebar())}
       className={`transform transition-transform duration-500 ${
         isSidebarOpen ? "rotate-180" : "ease-linear"
       } rounded-full p-1 duration-500 relative active:bg-sky-500 active:text-white`}

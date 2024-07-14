@@ -59,3 +59,15 @@ export interface CartItem {
 export interface ProductCardPropType {
   product: Product;
 }
+export interface SidebarState {
+  isSidebarOpen: boolean;
+}
+
+export interface SearchState {
+  search: string;
+  submittedSearch: Array<string>;
+}
+
+export interface CartState {
+  cart: CartItem[];
+}

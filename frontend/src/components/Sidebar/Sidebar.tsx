@@ -1,11 +1,11 @@
-import { useMyShopContext } from "../../contexts/MyShopContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import SidebarBody from "./SidebarBody";
 import SidebarFooter from "./SidebarFooter";
 import SidebarHeader from "./SidebarHeader";
 
 export default function Sidebar() {
-  const { isSidebarOpen } = useMyShopContext();
-
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
   return (
     <nav
       className={`${

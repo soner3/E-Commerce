@@ -1,15 +1,18 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useMyShopContext } from "../contexts/MyShopContext";
 import { useCallback, useEffect, useState } from "react";
 import Rating from "../components/Main/Rating";
 import ProductTableData from "../components/Main/Productpage/ProductTableData";
 import { BsCartPlusFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { addToCart } from "../features/cartSlice";
 
 export default function ProductPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { state, handleAddToCart } = useMyShopContext();
   const [quantity, setQuantity] = useState(1);
+  const { products } = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch();
 
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
@@ -28,7 +31,7 @@ export default function ProductPage() {
     }
   }, [id, navigate]);
 
-  const product = state.products.find((product) => product.id === id);
+  const product = products.find((product) => product.id === id);
 
   useEffect(() => {
     if (!product) {
@@ -149,11 +152,13 @@ export default function ProductPage() {
           <button className="w-3/4 rounded-full p-3 text-sky-500 border border-sky-500 font-medium text-lg active:bg-sky-500 active:text-white">
             <div
               onClick={() =>
-                handleAddToCart({
-                  product: product,
-                  quantity: quantity,
-                  totalPrice: Number((product.price * quantity).toFixed(2)),
-                })
+                dispatch(
+                  addToCart({
+                    product: product,
+                    quantity: quantity,
+                    totalPrice: Number((product.price * quantity).toFixed(2)),
+                  })
+                )
               }
               className="flex justify-center items-center gap-2 hover:scale-110 duration-500"
             >

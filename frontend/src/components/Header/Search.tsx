@@ -1,13 +1,27 @@
 import { BsSearch } from "react-icons/bs";
-import { useMyShopContext } from "../../contexts/MyShopContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import {
+  handleSearchChange,
+  handleSubmitSearch,
+} from "../../features/searchSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
-  const { handleSearchChange, handleSearchSubmit, search } = useMyShopContext();
+  const { search } = useSelector((state: RootState) => state.search);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    dispatch(handleSubmitSearch());
+    navigate("/");
+  }
 
   return (
     <form
       method="get"
-      onSubmit={handleSearchSubmit}
+      onSubmit={handleSubmit}
       className="border dark:border-black rounded-full md:flex justify-center hidden"
     >
       <button
@@ -22,7 +36,7 @@ export default function Search() {
         id="searchId"
         value={search}
         placeholder="Search"
-        onChange={handleSearchChange}
+        onChange={(event) => dispatch(handleSearchChange(event.target.value))}
         className="dark:text-white rounded-r-full p-2 focus:ring-2 duration-500 outline-none w-64 xl:w-96 bg-transparent"
       />
     </form>

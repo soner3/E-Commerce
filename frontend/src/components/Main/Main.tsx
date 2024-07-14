@@ -1,8 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import { useMyShopContext } from "../../contexts/MyShopContext";
 import Footer from "../Footer";
 import { lazy, Suspense } from "react";
 import LoadingScreen from "../../pages/LoadingScreen";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useDispatch } from "react-redux";
+import { handleSidebar } from "../../features/sidebarSlice";
 
 // import PageNotFound from "../../pages/PageNotFound";
 // import ProductPage from "../../pages/ProductPage";
@@ -15,11 +18,12 @@ const ProductPage = lazy(() => import("../../pages/ProductPage"));
 const PageNotFound = lazy(() => import("../../pages/PageNotFound"));
 
 export default function Main() {
-  const { isSidebarOpen, handleIsSidebarOpen } = useMyShopContext();
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
+  const dispatch = useDispatch();
 
   return (
     <main
-      onClick={isSidebarOpen ? handleIsSidebarOpen : () => {}}
+      onClick={isSidebarOpen ? () => dispatch(handleSidebar()) : undefined}
       className={`${
         isSidebarOpen ? "md:ml-[280px]" : "md:ml-[70px]"
       } duration-500 p-2 h-full`}

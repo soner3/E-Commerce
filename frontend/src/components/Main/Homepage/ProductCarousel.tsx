@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-import { useMyShopContext } from "../../../contexts/MyShopContext";
 import { Link } from "react-router-dom";
+import { Product } from "../../../interfaces";
 
-export default function ProductCarousel() {
+interface ProductCarouselPropType {
+  products: Product[];
+}
+
+const ProductCarousel = memo(function ProductCarousel({
+  products,
+}: ProductCarouselPropType) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { state } = useMyShopContext();
-
   const slides = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
   function prevSlide() {
@@ -28,20 +32,20 @@ export default function ProductCarousel() {
         >
           {slides.map((slide) => (
             <Link
-              to={`product?id=${state.products[slide.id].id}`}
+              to={`product?id=${products[slide.id].id}`}
               key={slide.id}
               className="min-w-full h-64 flex flex-col items-center justify-center text-2xl relative"
             >
               <img
-                src={state.products[slide.id]?.images[0]}
+                src={products[slide.id].images[0]}
                 alt="Product Picture"
                 className="object-cover w-52 relative group-hover:scale-110 duration-300"
               />
               <h2 className="mb-4 text-3xl font-medium">
-                {state.products[slide.id]?.title}
+                {products[slide.id].title}
               </h2>
               <div className="absolute top-10 right-24 lg:right-56 text-white bg-red-500 rounded-full w-24 h-20 p-2 text-center">
-                {state.products[slide.id]?.discountPercentage}%<br />
+                {products[slide.id].discountPercentage}%<br />
                 OFF
               </div>
             </Link>
@@ -65,4 +69,6 @@ export default function ProductCarousel() {
       </div>
     </div>
   );
-}
+});
+
+export default ProductCarousel;

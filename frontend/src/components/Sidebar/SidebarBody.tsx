@@ -1,10 +1,13 @@
-import { useMyShopContext } from "../../contexts/MyShopContext";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import CartItemBadge from "../CartItemBadge";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export default function SidebarBody() {
-  const { isSidebarOpen, cart } = useMyShopContext();
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
+  const { cart } = useSelector((state: RootState) => state.cart);
+  console.log(cart);
 
   return (
     <ul className="flex flex-col flex-grow">

@@ -4,17 +4,26 @@ import {
   BsSearch,
 } from "react-icons/bs";
 import Logo from "../Logo";
-import { useMyShopContext } from "../../contexts/MyShopContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { handleSidebar } from "../../features/sidebarSlice";
+import {
+  handleSubmitSearch,
+  handleSearchChange,
+} from "../../features/searchSlice";
 
 export default function SidebarHeader() {
-  const {
-    isSidebarOpen,
-    handleIsSidebarOpen,
-    handleSearchChange,
-    handleSearchSubmit,
-    search,
-  } = useMyShopContext();
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
+  const { search } = useSelector((state: RootState) => state.search);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    dispatch(handleSubmitSearch());
+    navigate("/");
+  }
 
   return (
     <>
@@ -24,7 +33,7 @@ export default function SidebarHeader() {
             <NavLink to={"/"}>
               <Logo>MyShop</Logo>
             </NavLink>
-            <button onClick={handleIsSidebarOpen}>
+            <button onClick={() => dispatch(handleSidebar())}>
               <BsArrowLeftCircleFill className="size-7" />
             </button>
           </div>
@@ -32,7 +41,7 @@ export default function SidebarHeader() {
 
           <form
             method="get"
-            onSubmit={handleSearchSubmit}
+            onSubmit={handleSubmit}
             className="rounded-full md:hidden justify-center flex my-2"
           >
             <button
@@ -47,7 +56,9 @@ export default function SidebarHeader() {
               id="searchId"
               value={search}
               placeholder="Search"
-              onChange={handleSearchChange}
+              onChange={(event) =>
+                dispatch(handleSearchChange(event.target.value))
+              }
               className="rounded-r-full p-2 focus:ring-2 outline-none w-64 xl:w-96 text-black"
             />
           </form>

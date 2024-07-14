@@ -1,12 +1,13 @@
 import { BsArrowUpCircleFill } from "react-icons/bs";
-import { useMyShopContext } from "../../contexts/MyShopContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface SidebarFooterPropTypes {
   children: React.ReactNode;
 }
 
 export default function SidebarFooter({ children }: SidebarFooterPropTypes) {
-  const { isSidebarOpen } = useMyShopContext();
+  const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
 
   return (
     <>
