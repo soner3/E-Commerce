@@ -85,14 +85,23 @@ const cartSlice = createSlice({
         };
       },
       reducer(state, action: PayloadAction<CartItem>) {
+        let hasNoQuantity = false;
         state.cart.forEach((item) => {
           if (item.product.id === action.payload.product.id) {
             item.totalPrice = parseFloat(
               (item.product.price * (item.quantity - 1)).toFixed(2)
             );
             item.quantity -= 1;
+            hasNoQuantity = item.quantity <= 0;
           }
         });
+        if (hasNoQuantity) {
+          state.cart = state.cart.filter((item) => {
+            return item.product.id !== action.payload.product.id;
+          });
+        } else {
+          return;
+        }
       },
     },
   },
