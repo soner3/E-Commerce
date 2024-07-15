@@ -7,7 +7,6 @@ import { RootState } from "../../store";
 export default function SidebarBody() {
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
   const { cart } = useSelector((state: RootState) => state.cart);
-  console.log(cart);
 
   return (
     <ul className="flex flex-col flex-grow">

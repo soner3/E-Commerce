@@ -84,9 +84,9 @@ export default function CartPage() {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center w-full">
+      {/* <div className="flex justify-center w-full">
         <Paypal />
-      </div>
+      </div> */}
     </section>
   );
 }
