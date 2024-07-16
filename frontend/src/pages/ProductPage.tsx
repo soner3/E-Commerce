@@ -31,7 +31,9 @@ export default function ProductPage() {
     }
   }, [id, navigate]);
 
-  const product = products.find((product) => product.id === id);
+  const product = products.find((product) => {
+    return product.id === Number(id);
+  });
 
   useEffect(() => {
     if (!product) {

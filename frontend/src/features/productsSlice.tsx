@@ -14,14 +14,18 @@ interface AsyncThunkConfig {
   rejectValue: string;
 }
 
+export interface DataType {
+  products: Product[];
+}
+
 export const fetchProducts = createAsyncThunk<
   Product[],
   void,
   AsyncThunkConfig
 >("products/fetchProducts", async () => {
-  const res = await fetch("http://localhost:8000/products");
-  const data: Product[] = await res.json();
-  return data;
+  const res = await fetch("data/data.json");
+  const data: DataType = await res.json();
+  return data["products"];
 });
 
 const productsSlice = createSlice({

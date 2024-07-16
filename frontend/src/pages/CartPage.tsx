@@ -6,7 +6,6 @@ import {
   cartItemQuantityPlus,
   deleteCartItem,
 } from "../features/cartSlice";
-import Paypal from "../components/Main/Cartpage/Paypal";
 
 export default function CartPage() {
   const { cart } = useSelector((state: RootState) => state.cart);
@@ -84,9 +83,6 @@ export default function CartPage() {
           </tbody>
         </table>
       </div>
-      {/* <div className="flex justify-center w-full">
-        <Paypal />
-      </div> */}
     </section>
   );
 }
