@@ -74,6 +74,9 @@ const cartSlice = createSlice({
         });
       },
     },
+    deleteCart(state) {
+      state.cart = [];
+    },
     cartItemQuantityMinus: {
       prepare(item: CartItem) {
         return {
@@ -112,5 +115,6 @@ export const {
   deleteCartItem,
   cartItemQuantityMinus,
   cartItemQuantityPlus,
+  deleteCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;
