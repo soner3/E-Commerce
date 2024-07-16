@@ -25,7 +25,7 @@ export default function CartPage() {
 
   return (
     <section>
-      <div className="flex flex-col mx-auto my-10 p-4 shadow-lg shadow-sky-500 rounded-lg">
+      <div className="flex flex-col mx-auto my-10 p-2 shadow-lg shadow-sky-500 rounded-lg">
         <h2 className="text-3xl font-bold mb-6">Your Shopping Cart</h2>
         <table className="table-auto border-collapse">
           <caption className="caption-top text-2xl font-medium mb-4">
@@ -34,9 +34,9 @@ export default function CartPage() {
           <thead className="uppercase text-center bg-sky-500 text-white">
             <tr>
               <th className="py-3 px-2">Product Title</th>
-              <th className="py-3 px-2">Price</th>
-              <th className="py-3 px-2">Quantity</th>
-              <th className="py-3 px-2">Total Price</th>
+              <th className="py-3 px-1">Price</th>
+              <th className="py-3 px-1">Quantity</th>
+              <th className="py-3 px-1">Total Price</th>
               <th className="py-3 px-2">Delete</th>
             </tr>
           </thead>
