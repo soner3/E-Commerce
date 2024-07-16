@@ -51,17 +51,17 @@ export default function CartPage() {
                   ${item.product.price.toFixed(2)}
                 </td>
                 <td className="py-3 px-2 text-center">
-                  <div className="flex px-2 justify-center items-center">
+                  <div className="flex flex-col md:flex-row px-2 justify-center items-center">
                     <button
                       onClick={() => dispatch(cartItemQuantityMinus(item))}
-                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-l"
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded  md:rounded-l"
                     >
                       -
                     </button>
                     <span className="px-3">{item.quantity}</span>
                     <button
                       onClick={() => dispatch(cartItemQuantityPlus(item))}
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-r"
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded  md:rounded-r"
                     >
                       +
                     </button>
