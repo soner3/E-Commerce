@@ -47,9 +47,7 @@ export default function ProductPage() {
 
   return (
     <section className="flex flex-col items-center my-5">
-      <h2 id="top" className="text-2xl font-bold mb-2">
-        {product.title}
-      </h2>
+      <h2 className="text-2xl font-bold mb-2">{product.title}</h2>
       <div className="h-full border flex flex-col items-center rounded-lg shadow-lg shadow-sky-500 md:w-3/4">
         <div className="p-2 hover:scale-110 duration-300">
           <img

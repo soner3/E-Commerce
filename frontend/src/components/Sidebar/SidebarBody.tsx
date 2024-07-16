@@ -3,6 +3,7 @@ import CartItemBadge from "../CartItemBadge";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { BsFillHouseDoorFill } from "react-icons/bs";
 
 export default function SidebarBody() {
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
@@ -12,6 +13,17 @@ export default function SidebarBody() {
     <ul className="flex flex-col flex-grow">
       {isSidebarOpen ? (
         <>
+          <NavLink to={"/"}>
+            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3">
+              <div className="relative">
+                <BsFillHouseDoorFill
+                  className={`${isSidebarOpen ? "size-5" : "size-7"}`}
+                />
+              </div>
+              <p>Home</p>
+            </li>
+          </NavLink>
+
           <NavLink to={"cart"}>
             <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3 relative">
               <div>

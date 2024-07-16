@@ -36,7 +36,7 @@ export default function Homepage() {
       {loading && <LoadingScreen />}
       {products.length > 0 && (
         <>
-          <h1 id="top" className="text-3xl text-center font-bold py-3">
+          <h1 className="text-3xl text-center font-bold py-3">
             Welcome to MyShop
           </h1>
           <ProductCarousel products={products} />
