@@ -4,6 +4,8 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useNavigate } from "react-router-dom";
 import { deleteCart } from "../../../features/cartSlice";
 
+const clientID = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+
 export default function Paypal() {
   const navigate = useNavigate();
   const { cart } = useSelector((state: RootState) => state.cart);
@@ -17,7 +19,7 @@ export default function Paypal() {
   return (
     <PayPalScriptProvider
       options={{
-        clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+        clientId: clientID,
       }}
     >
       <div className="flex justify-center w-full">
