@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { useDispatch } from "react-redux";
 import { handleSidebar } from "../../features/sidebarSlice";
+import LoginPage from "../../pages/LoginPage";
 
 // import PageNotFound from "../../pages/PageNotFound";
 // import ProductPage from "../../pages/ProductPage";
@@ -31,6 +32,7 @@ export default function Main() {
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
           <Route index element={<Homepage />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="product" element={<ProductPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="*" element={<PageNotFound />} />

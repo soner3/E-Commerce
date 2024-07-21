@@ -1,22 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product, ProductsData } from "../interfaces";
-import { RootState, AppDispatch } from "../store";
+import {
+  AsyncThunkConfig,
+  DataType,
+  Product,
+  ProductsData,
+} from "../interfaces";
 
 const initialState: ProductsData = {
   products: [],
   loading: false,
   error: false,
 };
-
-interface AsyncThunkConfig {
-  state: RootState;
-  dispatch: AppDispatch;
-  rejectValue: string;
-}
-
-export interface DataType {
-  products: Product[];
-}
 
 export const fetchProducts = createAsyncThunk<
   Product[],

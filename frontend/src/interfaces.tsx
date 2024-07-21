@@ -1,3 +1,5 @@
+import { AppDispatch, RootState } from "./store";
+
 export interface Review {
   rating: number;
   comment: string;
@@ -70,4 +72,14 @@ export interface SearchState {
 
 export interface CartState {
   cart: CartItem[];
+}
+
+export interface AsyncThunkConfig {
+  state: RootState;
+  dispatch: AppDispatch;
+  rejectValue: string;
+}
+
+export interface DataType {
+  products: Product[];
 }
