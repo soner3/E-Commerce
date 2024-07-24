@@ -35,13 +35,14 @@ export default function SidebarBody() {
               {cart.length <= 0 ? "" : <CartItemBadge />}
             </li>
           </NavLink>
-
-          <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3">
-            <div className="relative">
-              <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
-            </div>
-            <p>Login</p>
-          </li>
+          <NavLink to={"login"}>
+            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3">
+              <div className="relative">
+                <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
+              </div>
+              <p>Login</p>
+            </li>
+          </NavLink>
         </>
       ) : (
         <>
@@ -55,12 +56,13 @@ export default function SidebarBody() {
               </div>
             </li>
           </NavLink>
-
-          <li className="p-5 border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer">
-            <div>
-              <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
-            </div>
-          </li>
+          <NavLink to={"login"}>
+            <li className="p-5 border-b font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer">
+              <div>
+                <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
+              </div>
+            </li>
+          </NavLink>
         </>
       )}
     </ul>
