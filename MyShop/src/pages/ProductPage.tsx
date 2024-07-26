@@ -1,19 +1,24 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Rating from "../components/Main/Rating";
 import ProductTableData from "../components/Main/Productpage/ProductTableData";
 import { BsCartPlusFill } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "../features/productService";
+import LoadingScreen from "./LoadingScreen";
+import { useCallback, useState } from "react";
+import { AppDispatch } from "../store";
 
 export default function ProductPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-  const { products } = useSelector((state: RootState) => state.products);
-  const dispatch = useDispatch();
-
+  const dispatch: AppDispatch = useDispatch();
+  const { data: products, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
 
@@ -25,25 +30,20 @@ export default function ProductPage() {
     setQuantity((quantity) => (quantity - 1 <= 0 ? 1 : quantity - 1));
   }, []);
 
-  useEffect(() => {
-    if (!id) {
-      navigate("/");
-    }
-  }, [id, navigate]);
+  if (!products || isLoading) {
+    return <LoadingScreen />;
+  }
 
-  const product = products.find((product) => {
+  const newProducts = products.filter((product) => {
     return product.id === Number(id);
   });
 
-  useEffect(() => {
-    if (!product) {
-      navigate("/");
-    }
-  }, [product, navigate]);
-
-  if (!id || !product) {
+  if (newProducts.length <= 0) {
+    navigate("/");
     return null;
   }
+
+  const product = newProducts[0];
 
   return (
     <section className="flex flex-col items-center my-5">
