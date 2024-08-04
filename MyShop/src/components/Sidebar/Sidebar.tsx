@@ -6,6 +6,7 @@ import SidebarHeader from "./SidebarHeader";
 
 export default function Sidebar() {
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
+
   return (
     <nav
       className={`${

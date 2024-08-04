@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../store";
 import { BsFillHouseDoorFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/userSlice";
+import { motion } from "framer-motion";
 
 export default function SidebarBody() {
   const { isSidebarOpen } = useSelector((state: RootState) => state.sidebar);
@@ -23,18 +24,46 @@ export default function SidebarBody() {
       {isSidebarOpen ? (
         <>
           <NavLink to={"/app"}>
-            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3">
+            <motion.li
+              initial={{
+                opacity: 0,
+                x: -20,
+              }}
+              animate={{
+                opacity: [0, 1, 1, 1],
+                x: [-20, 5, 0],
+              }}
+              transition={{
+                duration: 0.5,
+                ease: "linear",
+              }}
+              className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3"
+            >
               <div className="relative">
                 <BsFillHouseDoorFill
                   className={`${isSidebarOpen ? "size-5" : "size-7"}`}
                 />
               </div>
               <p>Home</p>
-            </li>
+            </motion.li>
           </NavLink>
 
           <NavLink to={"/app/cart"}>
-            <li className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3 relative">
+            <motion.li
+              initial={{
+                opacity: 0,
+                x: -20,
+              }}
+              animate={{
+                opacity: [0, 1, 1, 1],
+                x: [-20, 5, 0],
+              }}
+              transition={{
+                duration: 0.5,
+                ease: "linear",
+              }}
+              className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3 relative"
+            >
               <div>
                 <FaShoppingCart
                   className={`${isSidebarOpen ? "size-5" : "size-7"}`}
@@ -42,9 +71,21 @@ export default function SidebarBody() {
               </div>
               <p>Cart</p>
               {cart.length <= 0 ? "" : <CartItemBadge />}
-            </li>
+            </motion.li>
           </NavLink>
-          <li
+          <motion.li
+            initial={{
+              opacity: 0,
+              x: -20,
+            }}
+            animate={{
+              opacity: [0, 1, 1, 1],
+              x: [-20, 5, 0],
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "linear",
+            }}
             onClick={handleLogout}
             className="p-2 mb-2 font-medium hover:bg-slate-200 hover:bg-opacity-40 hover:cursor-pointer rounded-md flex gap-3"
           >
@@ -52,7 +93,7 @@ export default function SidebarBody() {
               <FaUser className={`${isSidebarOpen ? "size-5" : "size-7"}`} />
             </div>
             <p>Logout</p>
-          </li>
+          </motion.li>
         </>
       ) : (
         <>
