@@ -43,7 +43,7 @@ export default function Paypal() {
               if (actions.order) {
                 await actions.order.capture();
                 dispatch(deleteCart());
-                navigate("/");
+                navigate("/app");
                 alert(
                   "Transaction completed! You will be brought back to the Homepage."
                 );
